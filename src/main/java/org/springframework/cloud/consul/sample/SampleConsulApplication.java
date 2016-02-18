@@ -71,6 +71,9 @@ public class SampleConsulApplication /*implements ApplicationListener<SimpleRemo
 	@Value("${spring.application.name:testConsulApp}")
 	private String appName;
 
+	@Autowired
+	private org.springframework.cloud.context.scope.refresh.RefreshScope refreshScope;
+
 	@RequestMapping("/me")
 	public ServiceInstance me() {
 		return discoveryClient.getLocalServiceInstance();
@@ -127,6 +130,13 @@ public class SampleConsulApplication /*implements ApplicationListener<SimpleRemo
 	@Bean
 	public SampleProperties sampleProperties() {
 		return new SampleProperties();
+	}
+
+
+	@Bean
+	@RefreshScope
+	public ReloadSignalHandler reloadSignalHandler(@Value("${consul.test.signalname}") String signalName) {
+		return new ReloadSignalHandler(refreshScope, signalName);
 	}
 
 	public static void main(String[] args) {

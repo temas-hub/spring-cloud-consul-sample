@@ -8,4 +8,5 @@ spring:
 consul:
   test:
     testProperty: test1
+    signalname: USR2
 
