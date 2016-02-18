@@ -1,5 +1,7 @@
 package org.springframework.cloud.consul.sample;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.scope.refresh.RefreshScope;
 import sun.misc.Signal;
 import sun.misc.SignalHandler;
 
@@ -8,6 +10,9 @@ import sun.misc.SignalHandler;
  * @since 17.02.2016
  */
 public class ReloadSignalHandler implements SignalHandler {
+
+    @Autowired
+    private RefreshScope refreshScope;
 
     private SignalHandler oldHandler;
     // Static method to install the signal handler
@@ -23,6 +28,7 @@ public class ReloadSignalHandler implements SignalHandler {
     public void handle(final Signal sig) {
         try {
             System.out.println("Worked!!!");
+            refreshScope.refreshAll();
             if ( oldHandler != SIG_DFL && oldHandler != SIG_IGN ) {
                 oldHandler.handle(sig);
             }
