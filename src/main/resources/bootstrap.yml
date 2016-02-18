@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: testConsulApp
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+consul:
+  test:
+    testProperty: test1
+
