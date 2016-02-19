@@ -18,7 +18,6 @@ public class Configurated {
         this.testProperty = testProperty;
     }
 
-//    @RequestMapping("/getProp")
     public String getTestProperty() {
         return testProperty;
     }
